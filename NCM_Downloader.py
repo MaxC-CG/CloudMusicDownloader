@@ -4,6 +4,7 @@ import re
 import urllib.request
 import os
 import sys
+from pydub import AudioSegment
 
 #Handling the problem of Windows reserved words in file names
 intab = "?*/\|.:><\""
@@ -31,6 +32,7 @@ while not If_End:
     #Make sure the quality of music（standard by default
     Music_Quality = input("Please enter the quality of the song you wish to download: (standard/higher/exhigh/lossless)\n")
     Music_ID = int(input("Please enter the initial number of the music:\n"))
+    Check_Process = input("Do you want to transcode audio files, slice them, etc.    Y/N\n")
     for music in musiclist:
         music.name = music.name.translate(trantab)
         music.download(Download_Addrass, Music_Quality)
@@ -55,7 +57,16 @@ while not If_End:
             if not comments is None:
                 Txt_File.write(comments['content']+"\n")
         Txt_File.close()
-        print("NO."+str(Music_ID).rjust(3,'0')+" "+ music.name +" Download successful!")
+        print("NO."+str(Music_ID).rjust(3,'0')+" "+ music.name +" download successful!")
+        if Check_Process == "Y" or Check_Process == "y":
+            #Process audio files
+            if Name[Name.rindex('.')+1:] != "mp3":
+                Music_Process = AudioSegment.from_file(r""+Download_Addrass + "/" + str(Music_ID).rjust(3,'0')+Name[Name.rindex('.'):], Name[Name.rindex('.')+1:])
+                one_minute = 60 * 1000
+                Music_Save = Music_Process[:one_minute]
+                Music_Save.export(r""+Download_Addrass + "/" +str(Music_ID).rjust(3,'0')+".mp3",format ="mp3")
+                os.remove(os.path.join(Download_Addrass, str(Music_ID).rjust(3,'0')+Name[Name.rindex('.'):]))
+                print("NO." + str(Music_ID).rjust(3, '0') + " processing completed!")
         Music_ID+=1
     print("Do you want to continue running this program?    Y/N")
     Check_End = input()
