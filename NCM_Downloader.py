@@ -59,6 +59,8 @@ while not If_End:
                         os.rename(os.path.join(Download_Addrass, Music_Name), os.path.join(Download_Addrass, str(Music_ID).rjust(3, '0') + '.'+music.type))
                         break
             print("NO." + str(Music_ID).rjust(3, '0') + " " + music.name + " download successful!")
+            Img_Name = Download_Addrass + '/' + str(Music_ID).rjust(3, '0') + '.png'
+            urllib.request.urlretrieve(music.picUrl, filename=Img_Name)
             if Check_Process == "Y" or Check_Process == "y":
                 #Process audio files
                 Music_Process = AudioSegment.from_file(r"" + Download_Addrass + "/" + str(Music_ID).rjust(3,'0') + '.'+music.type, music.type)
@@ -67,14 +69,12 @@ while not If_End:
                 Music_Save.export(r""+Download_Addrass + "/" +str(Music_ID).rjust(3,'0')+".mp3",format ="mp3")
                 if music.type != "mp3":
                     os.remove(os.path.join(Download_Addrass, str(Music_ID).rjust(3,'0') + '.'+music.type))
-            Img_Name = Download_Addrass+'/'+str(Music_ID).rjust(3,'0')+'.png'
-            urllib.request.urlretrieve(music.picUrl , filename=Img_Name)
-            #pngquant.quant_image(Img_Name)
-            while getsize(Img_Name) > 1000000:
-                Img_Re = Image.open(Img_Name)
-                Img_Re = Img_Re.resize((int(Img_Re.size[0]/2),int(Img_Re.size[1]/2)))
-                Img_Re.save(Img_Name)
-            print("NO." + str(Music_ID).rjust(3, '0') + " processing completed!")
+                pngquant.quant_image(Img_Name)
+                while getsize(Img_Name) > 1000000:
+                    Img_Re = Image.open(Img_Name)
+                    Img_Re = Img_Re.resize((int(Img_Re.size[0]/2),int(Img_Re.size[1]/2)))
+                    Img_Re.save(Img_Name)
+                print("NO." + str(Music_ID).rjust(3, '0') + " processing completed!")
             Txt_File = open(r""+Download_Addrass + "/" + str(Music_ID).rjust(3,'0') + ".txt", mode='w', encoding="utf-8")
             Txt_File.write("Music Name: "+music.name+"\n\n"+"Artist Name: ")
             for artist in music.artist:
