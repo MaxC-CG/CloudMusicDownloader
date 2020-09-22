@@ -5,7 +5,7 @@
 * ___This program also uses the [pydub] package, which you also need to install ahead of time. In particular, in order to use some of the features in the pydub package, you need to install [ffmpeg] or [libav] in your environment.___
 * ___In order to achieve the image compression function, we uses [pngquant] and [pillow]. So you will need to download the pngquant library and install the python wrapper and the pillow package.___
 
-###Functions realized in this program
+### Functions realized in this program
 
 > * According to the __ID__ of Netease Cloud Music playlist, automatically download all songs in the  playlist to the specified local folder
 > * Download album cover images of songs to the same directory
@@ -14,7 +14,7 @@
 > * Automatically convert audio files to __.mp3__ format and slice the first minute of the audio
 > * Automatically compress images larger than 1MB
 
-###How to use this program
+### How to use this program
 
 > * Configure your Python environment
 > * install [pngquant] on your OS
@@ -26,7 +26,7 @@
 > *  Run the ___NCM_Downloader.py___ file
 > *  Follow the input prompt
 
-###Tips 
+### Tips 
 
 > * You can get the ID of the playlist from the URL of the Netease Cloud Music playlist
 > For example, in URL https://music.163.com/#/playlist?Id=4895239160, ___4895239160___ is the id of the playlist
